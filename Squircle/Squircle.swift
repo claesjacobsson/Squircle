@@ -16,16 +16,43 @@ extension UIView {
     public func squircle() {
         self.layer.applySquircle()
     }
+    
+    /**
+    Apply squircle corner radius with a border.
+     - parameters:
+        - borderWidth: Border width
+        - borderColor: Border color
+     */
+    public func squircleWithBorder(width: CGFloat, color: UIColor) {
+        self.layer.applySquircleWithBorder(width: width, color: color)
+    }
 }
 
 extension CALayer {
     
     /**
-     Apply a squircle mask corner radius.
+     Apply squircle corner radius.
      */
     public func applySquircle() {
         let maskLayer = CAShapeLayer()
         maskLayer.path = squirclePath.cgPath
         self.mask = maskLayer
+    }
+    
+    /**
+     Apply squircle corner radius with a border.
+     - parameters:
+        - borderWidth: Border width
+        - borderColor: Border color
+     */
+    public func applySquircleWithBorder(width: CGFloat, color: UIColor) {
+        applySquircle()
+        let borderLayer = CAShapeLayer()
+        borderLayer.path = squirclePath.cgPath
+        borderLayer.lineWidth = width
+        borderLayer.strokeColor = color.cgColor
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.frame = self.bounds
+        self.addSublayer(borderLayer)
     }
 }
